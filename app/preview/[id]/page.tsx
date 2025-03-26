@@ -1,13 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, use } from "react"
 import { DashboardLayout } from "@/components/dashboard-layout"
 import { BlogPreview } from "@/components/blog-preview"
 import { getBlogById, getUserTheme } from "@/lib/blog-storage"
 import type { BlogPost, Theme } from "@/lib/types"
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function PreviewBlogPage({ params }: { params: { id: string } }) {
+export default function PreviewBlogPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params)
   const [blog, setBlog] = useState<BlogPost | null>(null)
   const [theme, setTheme] = useState<Theme | null>(null)
   const [loading, setLoading] = useState(true)
@@ -16,7 +17,7 @@ export default function PreviewBlogPage({ params }: { params: { id: string } }) 
     // Fetch the blog post and user theme from local storage
     const fetchData = async () => {
       try {
-        const [blogPost, userTheme] = await Promise.all([getBlogById(params.id), getUserTheme()])
+        const [blogPost, userTheme] = await Promise.all([getBlogById(resolvedParams.id), getUserTheme()])
         setBlog(blogPost)
         setTheme(userTheme)
       } catch (error) {
@@ -27,7 +28,7 @@ export default function PreviewBlogPage({ params }: { params: { id: string } }) 
     }
 
     fetchData()
-  }, [params.id])
+  }, [resolvedParams.id])
 
   if (loading) {
     return (

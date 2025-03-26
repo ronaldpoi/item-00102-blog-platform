@@ -1,13 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, use } from "react"
 import { DashboardLayout } from "@/components/dashboard-layout"
 import { BlogEditor } from "@/components/blog-editor"
 import { getBlogById } from "@/lib/blog-storage"
 import type { BlogPost } from "@/lib/types"
 import { Skeleton } from "@/components/ui/skeleton"
 
-export default function EditBlogPage({ params }: { params: { id: string } }) {
+export default function EditBlogPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params)
   const [blog, setBlog] = useState<BlogPost | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -15,7 +16,7 @@ export default function EditBlogPage({ params }: { params: { id: string } }) {
     // Fetch the blog post from local storage
     const fetchBlog = async () => {
       try {
-        const blogPost = await getBlogById(params.id)
+        const blogPost = await getBlogById(resolvedParams.id)
         setBlog(blogPost)
       } catch (error) {
         console.error("Failed to fetch blog post:", error)
@@ -25,7 +26,7 @@ export default function EditBlogPage({ params }: { params: { id: string } }) {
     }
 
     fetchBlog()
-  }, [params.id])
+  }, [resolvedParams.id])
 
   if (loading) {
     return (
