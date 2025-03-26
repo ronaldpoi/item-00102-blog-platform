@@ -457,8 +457,8 @@ export function BlogEditor({ blogPost }: BlogEditorProps) {
             </Tabs>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <div className="flex gap-2">
+        <CardFooter className="flex flex-col items-start sm:flex-row justify-between items-stretch gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Button variant="outline" onClick={() => router.push("/")} disabled={isSaving}>
               Cancel
             </Button>
@@ -467,7 +467,7 @@ export function BlogEditor({ blogPost }: BlogEditorProps) {
               Preview
             </Button>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <Button variant="outline" onClick={() => handleSaveBlog(false)} disabled={isSaving}>
               <Save className="mr-2 h-4 w-4" />
               Save Draft
