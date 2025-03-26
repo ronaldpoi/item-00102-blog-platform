@@ -243,8 +243,8 @@ export function BlogList() {
                       </TableHead>
                       <TableHead>Categories</TableHead>
                       <TableHead>
-                        <Button variant="ghost" onClick={() => toggleSort("updatedAt")} className="flex items-center">
-                          Last Updated
+                        <Button variant="ghost" onClick={() => toggleSort("publishedAt")} className="flex items-center">
+                          Published
                           <ArrowUpDown className="ml-2 h-4 w-4" />
                         </Button>
                       </TableHead>
@@ -272,7 +272,7 @@ export function BlogList() {
                             )}
                           </div>
                         </TableCell>
-                        <TableCell>{formatDate(blog.updatedAt)}</TableCell>
+                        <TableCell>{formatDate(blog.publishedAt)}</TableCell>
                         <TableCell>
                           <span
                             className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
