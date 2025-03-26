@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { Plus, Pencil, Trash2, Save, X, Check } from "lucide-react"
+import { Plus, Pencil, Trash2, Save, X, Check, Info } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -198,7 +198,7 @@ export function ThemeManager() {
       backgroundColor,
       color: textColor,
       fontFamily,
-      border: "1px solid #e2e8f0",
+      border: "1px dashed #999",
       borderRadius: "0.5rem",
       padding: "1rem",
       marginTop: "1rem",
@@ -351,7 +351,7 @@ export function ThemeManager() {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between">
+        <CardFooter className="flex">
           {isEditing ? (
             <Button variant="outline" onClick={resetForm}>
               <X className="mr-2 h-4 w-4" />
@@ -541,6 +541,12 @@ export function ThemeManager() {
             </>
           )}
         </CardContent>
+        <CardFooter className="flex">
+          <Info className="mr-2 h-6 w-6" />
+          <div className="text-sm text-red-500">
+            Themes apply only to blog posts, not the Blog Manager
+          </div>
+        </CardFooter>
       </Card>
 
       <AlertDialog open={!!themeToDelete} onOpenChange={(open) => !open && setThemeToDelete(null)}>
